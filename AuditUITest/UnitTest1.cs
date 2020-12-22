@@ -114,5 +114,24 @@ namespace AuditUITest
                 Assert.AreEqual("Svar gemt succesfuldt.", response);
             }
         }
+
+        [TestMethod]
+        public void CompleteClicked()
+        {
+            using (IWebDriver driver = new ChromeDriver(Directory.GetCurrentDirectory()))
+            {
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                Uri url = new Uri(URL + "audit.html");
+                driver.Navigate().GoToUrl(url);
+
+                IWebElement completeButton = driver.FindElement(By.Id("completebtn"));
+
+                completeButton.Click();
+
+                string response = wait.Until(e => e.FindElement(By.Id("response")).Text);
+
+                Assert.AreEqual("Rapport afsluttet.", response);
+            }
+        }
     }
 }
